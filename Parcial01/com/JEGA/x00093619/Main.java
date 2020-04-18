@@ -40,6 +40,16 @@ public class Main {
                     System.out.println(empresa.consultarEmpleados());
 
                     break;
+                case 4:
+                    System.out.println("Ingrese el nombre del empleado al que le va a calcular el salario");
+                    String nomcal;
+                    nomcal=in.nextLine();
+
+                    Empleado empleado;
+                    empleado= empresa.buscarEmpleado(nomcal);
+                    CalculadoraImpuestos calcuIMP= new CalculadoraImpuestos();
+                    System.out.println(calcuIMP.calcularPago(empleado));
+                    break;
             }
         }while(op!=0);
 
