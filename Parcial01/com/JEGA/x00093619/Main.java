@@ -19,7 +19,7 @@ public class Main {
         nombreE = in.nextLine();
 
         Empresa empresa = new Empresa(nombreE);
-
+        CalculadoraImpuestos calcuIMP= new CalculadoraImpuestos();
         byte op;
 
         do{
@@ -47,8 +47,14 @@ public class Main {
 
                     Empleado empleado;
                     empleado= empresa.buscarEmpleado(nomcal);
-                    CalculadoraImpuestos calcuIMP= new CalculadoraImpuestos();
+
                     System.out.println(calcuIMP.calcularPago(empleado));
+                    break;
+                case 5:
+                    System.out.println(calcuIMP.mostrarTotales());
+                    break;
+                case 0:
+                    System.out.println("Saliendo...");
                     break;
             }
         }while(op!=0);

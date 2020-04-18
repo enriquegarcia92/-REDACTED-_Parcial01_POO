@@ -22,13 +22,21 @@ public final class CalculadoraImpuestos {
             }else if(restante>=2038.11){
                 Renta=0.3*(restante-2038.10)+288.57;
             }
+            totalAFP+=AFP;
+            totalISSS+=ISSS;
+            totalRenta+=Renta;
             PagoEmp=restante-Renta;
+        }else if(emp instanceof ServicioProfesional){
+            Renta=salario*0.1;
+            totalRenta+=Renta;
+            PagoEmp=salario-Renta;
         }
 
         return PagoEmp;
     }
     public String mostrarTotales(){
-        //Igualmente solo mientras no se crea el metodo
-        return "Renta:" ;
+        String cadena="Total de AFP descontado:"+totalAFP+"\nTotal de ISSS descontado:"+totalISSS+"\nTotal de Renta descontada: "+totalRenta;
+
+        return cadena;
     }
 }
