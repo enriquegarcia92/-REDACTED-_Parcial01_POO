@@ -30,9 +30,38 @@ public abstract class Empleado {
         return salario;
     }
 
-    public void addDocumentos(com.JEGA.x00093619.Documento doc){
+    public void addDocumentos(com.JEGA.x00093619.Documento doc) {
 
-        documentos.add(doc);
+        try{
+
+            boolean exists=false;
+
+            for (Documento d : documentos) {
+
+                if (d.getNumero().equals(doc.getNumero())) {
+
+                    exists = true;
+
+                }
+            }
+
+                if(exists){
+
+                    throw new DocumentAlreadyExistsException("ya existe ese numero de documento en el sistema");
+
+                }
+                documentos.add(doc);
+
+
+        }catch (DocumentAlreadyExistsException e){
+
+            System.out.println(e.getMessage());
+
+        }catch (Exception e){
+
+            System.out.println(e.getMessage());
+
+        }
 
     }
     public void removeDocumento(){

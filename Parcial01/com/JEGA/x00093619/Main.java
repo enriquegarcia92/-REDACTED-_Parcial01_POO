@@ -1,8 +1,5 @@
 package com.JEGA.x00093619;
 
-import sun.util.calendar.CalendarUtils;
-
-import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -22,7 +19,7 @@ public class Main {
         nombreE = in.nextLine();
 
         Empresa empresa = new Empresa(nombreE);
-        CalculadoraImpuestos calcuIMP= new CalculadoraImpuestos();
+        CalculadoraImpuestos calcuIMP = new CalculadoraImpuestos();
         byte op;
         boolean error = false;
 
@@ -53,20 +50,20 @@ public class Main {
 
                             break;
                         case 4:
-                            try{
+                            try {
                                 System.out.println("Ingrese el nombre del empleado al que le va a pagar");
                                 String nomcal;
-                                nomcal=in.nextLine();
+                                nomcal = in.nextLine();
 
                                 Empleado empleado;
-                                empleado=empresa.buscarEmpleado(nomcal);
-                                if(empleado==null){
+                                empleado = empresa.buscarEmpleado(nomcal);
+                                if (empleado == null) {
                                     throw new EmployeNotFoundExeption("Empleado no encontrado");
                                 }
                                 System.out.println(calcuIMP.calcularPago(empleado));
-                            }catch(EmployeNotFoundExeption e){
+                            } catch (EmployeNotFoundExeption e) {
                                 System.out.println(e.getMessage());
-                            }catch(Exception e){
+                            } catch (Exception e) {
                                 System.out.println(e.getMessage());
                             }
 
@@ -83,16 +80,16 @@ public class Main {
 
                 break;
 
-            }catch (InputMismatchException e){
+            } catch (InputMismatchException e) {
 
                 System.out.println("debe utilizar valores numericos entre 0 y 5 para su eleccion.");
                 in.nextLine();
-                error=true;
+                error = true;
 
             }
 
 
-        }while(error);
+        } while (error);
     }
 
     public static void añadirEmpleado(Empresa emp) {
@@ -100,7 +97,7 @@ public class Main {
         double salario = 0;
         int mesesContrato = 0, extension = 0;
 
-        int opc1,opc2=0;
+        int opc1, opc2 = 0;
 
         System.out.println("para ingresar un empleado por contrato presione 1, para plaza fija presione 2");
 
@@ -116,7 +113,7 @@ public class Main {
             System.out.println("ingrese el puesto del empleado: ");
 
             puesto = in.nextLine();
-            boolean error=false;
+            boolean error = false;
             do {
                 error = false;
 
@@ -135,7 +132,7 @@ public class Main {
                     in.nextLine();
 
                 }
-            }while(error);
+            } while (error);
 
             System.out.println("ingrese los meses del contrato: ");
 
@@ -143,16 +140,19 @@ public class Main {
             in.nextLine();
             Empleado ex = new ServicioProfesional(nombre, puesto, salario, mesesContrato);
             emp.addEmpleado(ex);
+
+
             System.out.println("Debe añadir un documento:");
             añadirDocumento(ex);
-            do{
+            do {
                 System.out.println("Desea añadir otro documento?\n1.Añadir\n0.terminar");
-                opc2=in.nextInt();in.nextLine();
-                if(opc2==1){
+                opc2 = in.nextInt();
+                in.nextLine();
+
+                if (opc2 == 1) {
                     añadirDocumento(ex);
                 }
-            }while(opc2!=0);
-
+            } while (opc2 != 0);
 
         } else if (opc1 == 2) {
 
@@ -166,51 +166,52 @@ public class Main {
 
             System.out.println("ingrese el salario del empleado: ");
 
-            salario = in.nextDouble();in.nextLine();
+            salario = in.nextDouble();
+            in.nextLine();
 
             System.out.println("ingrese la extensión:");
 
-            extension=in.nextInt(); in.nextLine();
+            extension = in.nextInt();
+            in.nextLine();
             Empleado ex2 = new PlazaFija(nombre, puesto, salario, extension);
             emp.addEmpleado(ex2);
             System.out.println("Debe añadir un documento:");
             añadirDocumento(ex2);
-            do{
+            do {
                 System.out.println("Desea añadir otro documento?\n1.Añadir\n0.terminar");
-                opc2=in.nextInt();in.nextLine();
-                if(opc2==1){
+                opc2 = in.nextInt();
+                in.nextLine();
+                if (opc2 == 1) {
                     añadirDocumento(ex2);
                 }
 
-            }while(opc2!=0);
+            } while (opc2 != 0);
 
         }
 
 
-
     }
 
-    public static void añadirDocumento(Empleado ex){
+    public static void añadirDocumento(Empleado ex) {
 
         String nombreD;
-        String numero;
+        String numero = null;
 
         System.out.println("ingrese el nombre del documento: ");
 
-        nombreD= in.nextLine();
+        nombreD = in.nextLine();
 
         System.out.println("ingrese el numero del documento: ");
 
-        numero= in.nextLine();
+        numero = in.nextLine();
 
-        Documento dx =new Documento(nombreD,numero);
+        Documento dx = new Documento(nombreD, numero);
 
         ex.addDocumentos(dx);
 
-
     }
-    
 }
+
 
 
 
