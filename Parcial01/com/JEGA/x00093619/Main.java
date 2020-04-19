@@ -2,12 +2,13 @@ package com.JEGA.x00093619;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.concurrent.ExecutionException;
 
 public class Main {
 
     static Scanner in = new Scanner(System.in);
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws EmployeNotFoundExeption {
 
         String nombreE, puesto;
         double salario;
@@ -41,14 +42,25 @@ public class Main {
 
                     break;
                 case 4:
-                    System.out.println("Ingrese el nombre del empleado al que le va a calcular el salario");
-                    String nomcal;
-                    nomcal=in.nextLine();
+                    try{
+                        System.out.println("Ingrese el nombre del empleado al que le va a calcular el salario");
+                        String nomcal;
+                        nomcal=in.nextLine();
 
-                    Empleado empleado;
-                    empleado= empresa.buscarEmpleado(nomcal);
+                        Empleado empleado;
+                        empleado= empresa.buscarEmpleado(nomcal);
+                        if(empleado==null){
+                            throw new EmployeNotFoundExeption("Empleado no encontrado");
+                        }
+                        System.out.println(calcuIMP.calcularPago(empleado));
+                    }catch(EmployeNotFoundExeption e){
+                        System.out.println(e.getMessage());
+                    }catch(Exception e){
+                        System.out.println(e.getMessage());
+                    }
 
-                    System.out.println(calcuIMP.calcularPago(empleado));
+
+
                     break;
                 case 5:
                     System.out.println(calcuIMP.mostrarTotales());

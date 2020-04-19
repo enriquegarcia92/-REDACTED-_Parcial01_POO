@@ -52,13 +52,17 @@ public class Empresa {
     }
 
     public Empleado buscarEmpleado(String nombre){
+
         Empleado aux = null;
 
         for(Empleado Emp : planilla){
             if(Emp.getNombre().equals(nombre))
                 aux = Emp;
         }
-        return aux;
+
+
+           return aux;
+
     }
 
 
