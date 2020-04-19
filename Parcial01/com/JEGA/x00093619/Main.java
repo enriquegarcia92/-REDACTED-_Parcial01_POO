@@ -1,6 +1,7 @@
 package com.JEGA.x00093619;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -21,31 +22,49 @@ public class Main {
         Empresa empresa = new Empresa(nombreE);
 
         byte op;
+        boolean error = false;
 
-        do{
-            System.out.println("Ingrese una opcion\n1.añadir empleado\n2.Despedir Empleado\n3.Ver Empleado\n4.Calcular Sueldo\n5.Mostrar Totales\n0.Salir");
-            op=in.nextByte();in.nextLine();
-            switch(op){
-                case 1:
-                    añadirEmpleado(empresa);
-                    break;
-                case 2:
-                    System.out.println("Ingrese el nombre del empleado que quiere despedir");
-                    String nombre=in.nextLine();
-                    String finalname;
-                    finalname=nombre;
-                    empresa.quitEmpleado(finalname);
-                    break;
-                case 3:
-                    System.out.println(empresa.consultarEmpleados());
+        do {
 
-                    break;
+            error = false;
+
+            try {
+
+                do {
+
+                    System.out.println("Ingrese una opcion\n1.añadir empleado\n2.Despedir Empleado\n3.Ver Empleado\n4.Calcular Sueldo\n5.Mostrar Totales\n0.Salir");
+                    op = in.nextByte();
+                    in.nextLine();
+                    switch (op) {
+                        case 1:
+                            añadirEmpleado(empresa);
+                            break;
+                        case 2:
+                            System.out.println("Ingrese el nombre del empleado que quiere despedir");
+                            String nombre = in.nextLine();
+                            String finalname;
+                            finalname = nombre;
+                            empresa.quitEmpleado(finalname);
+                            break;
+                        case 3:
+                            System.out.println(empresa.consultarEmpleados());
+
+                            break;
+                    }
+                } while (op != 0);
+
+                break;
+
+            }catch (InputMismatchException e){
+
+                System.out.println("debe utilizar valores numericos entre 0 y 5 para su eleccion.");
+                in.nextLine();
+                error=true;
+
             }
-        }while(op!=0);
 
 
-
-
+        }while(error);
     }
 
     public static void añadirEmpleado(Empresa emp) {
@@ -69,11 +88,26 @@ public class Main {
             System.out.println("ingrese el puesto del empleado: ");
 
             puesto = in.nextLine();
+            boolean error=false;
+            do {
+                error = false;
 
-            System.out.println("ingrese el salario del empleado: ");
+                try {
 
-            salario = in.nextDouble();
-            in.nextLine();
+
+                    System.out.println("ingrese el salario del empleado: ");
+
+                    salario = in.nextDouble();
+                    in.nextLine();
+
+                } catch (InputMismatchException e) {
+
+                    System.out.println("solo se admiten valores numericos, por favor ingrese uno.");
+                    error = true;
+                    in.nextLine();
+
+                }
+            }while(error);
 
             System.out.println("ingrese los meses del contrato: ");
 
