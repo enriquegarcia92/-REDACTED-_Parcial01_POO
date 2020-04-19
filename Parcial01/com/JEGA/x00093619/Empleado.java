@@ -22,7 +22,7 @@ public abstract class Empleado {
         return puesto;
     }
 
-    public ArrayList<com.JEGA.x00093619.Documento> getListaDoc() {
+    public ArrayList<Documento> getDocumentos() {
         return documentos;
     }
 

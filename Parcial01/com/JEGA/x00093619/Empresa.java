@@ -20,7 +20,38 @@ public class Empresa {
     }
 
     public void addEmpleado(Empleado emp){
-    planilla.add(emp);
+
+        try{
+
+            boolean exists=false;
+
+            for (Empleado d : planilla) {
+
+                if (d.getDocumentos().equals(emp.getDocumentos())) {
+
+                    exists = true;
+
+                }
+            }
+
+            if(exists){
+
+                throw new DocumentAlreadyExistsException("ya existe ese numero de documento en el sistema");
+
+            }
+            planilla.add(emp);
+
+
+        }catch (DocumentAlreadyExistsException e){
+
+            System.out.println(e.getMessage());
+
+        }catch (Exception e){
+
+            System.out.println(e.getMessage());
+
+        }
+
     }
     public void quitEmpleado(String nombre){
         Empleado aux = null;

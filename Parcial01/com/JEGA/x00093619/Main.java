@@ -1,5 +1,6 @@
 package com.JEGA.x00093619;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -20,6 +21,7 @@ public class Main {
 
         Empresa empresa = new Empresa(nombreE);
         CalculadoraImpuestos calcuIMP = new CalculadoraImpuestos();
+
         byte op;
         boolean error = false;
 
@@ -139,11 +141,12 @@ public class Main {
             mesesContrato = in.nextInt();
             in.nextLine();
             Empleado ex = new ServicioProfesional(nombre, puesto, salario, mesesContrato);
+            System.out.println("Debe añadir un documento:");
+            añadirDocumento(ex);
             emp.addEmpleado(ex);
 
 
-            System.out.println("Debe añadir un documento:");
-            añadirDocumento(ex);
+
             do {
                 System.out.println("Desea añadir otro documento?\n1.Añadir\n0.terminar");
                 opc2 = in.nextInt();
@@ -174,9 +177,11 @@ public class Main {
             extension = in.nextInt();
             in.nextLine();
             Empleado ex2 = new PlazaFija(nombre, puesto, salario, extension);
-            emp.addEmpleado(ex2);
             System.out.println("Debe añadir un documento:");
             añadirDocumento(ex2);
+            emp.addEmpleado(ex2);
+
+
             do {
                 System.out.println("Desea añadir otro documento?\n1.Añadir\n0.terminar");
                 opc2 = in.nextInt();
@@ -193,24 +198,26 @@ public class Main {
     }
 
     public static void añadirDocumento(Empleado ex) {
-
         String nombreD;
         String numero = null;
 
-        System.out.println("ingrese el nombre del documento: ");
+    System.out.println("ingrese el nombre del documento: ");
 
-        nombreD = in.nextLine();
+    nombreD = in.nextLine();
 
-        System.out.println("ingrese el numero del documento: ");
+    System.out.println("ingrese el numero del documento: ");
 
-        numero = in.nextLine();
+    numero = in.nextLine();
 
-        Documento dx = new Documento(nombreD, numero);
+    Documento dx = new Documento(nombreD, numero);
+    ex.addDocumentos(dx);
 
-        ex.addDocumentos(dx);
+
+}
+
 
     }
-}
+
 
 
 
