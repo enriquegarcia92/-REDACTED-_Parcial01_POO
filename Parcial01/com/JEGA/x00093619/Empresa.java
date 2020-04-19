@@ -21,9 +21,9 @@ public class Empresa {
 
     public void addEmpleado(Empleado emp){
 
-        try{
+        try {
 
-            boolean exists=false;
+            boolean exists = false;
 
             for (Empleado d : planilla) {
 
@@ -34,15 +34,41 @@ public class Empresa {
                 }
             }
 
-            if(exists){
+            boolean extencionex = false;
+
+            for (Empleado d : planilla) {
+
+                if (d instanceof PlazaFija) {
+
+                    if (((PlazaFija) d).getExtension() == ((PlazaFija) emp).getExtension()) {
+
+                        extencionex = true;
+                    }
+
+                }
+
+            }
+
+            if (exists) {
 
                 throw new DocumentAlreadyExistsException("ya existe ese numero de documento en el sistema");
+
+            }
+
+            if (extencionex) {
+
+                throw new ExtensionAlreadyExistsException("esa extención ya está asignada.");
 
             }
             planilla.add(emp);
 
 
+
         }catch (DocumentAlreadyExistsException e){
+
+            System.out.println(e.getMessage());
+
+        }catch(ExtensionAlreadyExistsException e){
 
             System.out.println(e.getMessage());
 

@@ -41,14 +41,47 @@ public class Main {
                             añadirEmpleado(empresa);
                             break;
                         case 2:
+
+                            try{
                             System.out.println("Ingrese el nombre del empleado que quiere despedir");
                             String nombre = in.nextLine();
                             String finalname;
                             finalname = nombre;
-                            empresa.quitEmpleado(finalname);
+
+                            Empleado empleado;
+
+                            empleado=empresa.buscarEmpleado(nombre);
+
+                            if(empleado==null){
+                                throw new EmployeNotFoundExeption("Empleado no encontrado.");
+                            }
+
+                            empresa.quitEmpleado(finalname);}catch (EmployeNotFoundExeption e){
+                                System.out.println(e.getMessage());
+                            }catch (Exception e){
+                                System.out.println(e.getMessage());
+                            }
+
                             break;
                         case 3:
-                            System.out.println(empresa.consultarEmpleados());
+
+                            try {
+
+                                String aux = empresa.consultarEmpleados();
+                                System.out.println(empresa.consultarEmpleados());
+
+                                if (aux.equals("")) {
+
+                                    throw new EmptyListException("Planilla vacia");
+                                }
+
+                            } catch (EmptyListException e){
+
+                                System.out.println(e.getMessage());
+                            } catch (Exception e){
+
+                                System.out.println(e.getMessage());
+                            }
 
                             break;
                         case 4:
@@ -99,12 +132,27 @@ public class Main {
         double salario = 0;
         int mesesContrato = 0, extension = 0;
 
-        int opc1, opc2 = 0;
+        int opc1 = 0, opc2 = 0;
+        boolean error=false;
 
-        System.out.println("para ingresar un empleado por contrato presione 1, para plaza fija presione 2");
+        do {
 
-        opc1 = in.nextByte();
-        in.nextLine();
+            error = false;
+
+            try {
+
+                System.out.println("para ingresar un empleado por contrato presione 1, para plaza fija presione 2");
+
+                opc1 = in.nextByte();
+                in.nextLine();
+            } catch (InputMismatchException e) {
+
+                System.out.println("Debe utilizar los numeros 1 y 2 para seleccionar una opcion.");
+                error = true;
+                in.nextLine();
+
+            }
+        }while(error);
 
         if (opc1 == 1) {
 
@@ -115,7 +163,7 @@ public class Main {
             System.out.println("ingrese el puesto del empleado: ");
 
             puesto = in.nextLine();
-            boolean error = false;
+
             do {
                 error = false;
 
@@ -136,10 +184,24 @@ public class Main {
                 }
             } while (error);
 
-            System.out.println("ingrese los meses del contrato: ");
+            do {
 
-            mesesContrato = in.nextInt();
-            in.nextLine();
+                error=false;
+
+                try {
+                    System.out.println("ingrese los meses del contrato: ");
+
+                    mesesContrato = in.nextInt();
+                    in.nextLine();
+                } catch (InputMismatchException e) {
+
+                    System.out.println("debe ingresar valores numericos en esta casilla.");
+                    error = true;
+                    in.nextLine();
+
+                }
+            }while (error);
+
             Empleado ex = new ServicioProfesional(nombre, puesto, salario, mesesContrato);
             System.out.println("Debe añadir un documento:");
             añadirDocumento(ex);
@@ -167,20 +229,50 @@ public class Main {
 
             puesto = in.nextLine();
 
-            System.out.println("ingrese el salario del empleado: ");
+            do {
 
-            salario = in.nextDouble();
-            in.nextLine();
+                error=false;
 
-            System.out.println("ingrese la extensión:");
+                try {
 
-            extension = in.nextInt();
-            in.nextLine();
+                    System.out.println("ingrese el salario del empleado: ");
+                    salario = in.nextDouble();
+                    in.nextLine();
+
+                } catch (InputMismatchException e) {
+
+                    System.out.println("debe ingresar un valor numerico en esta casilla.");
+                    error = true;
+                    in.nextLine();
+
+                }
+
+            }while(error);
+
+
+
+            do {
+
+                error=false;
+
+                try{
+
+                System.out.println("ingrese la extensión:");
+                extension = in.nextInt();
+                in.nextLine();}catch(InputMismatchException e){
+
+                    System.out.println("debe ingresar un valor numerico en esta casilla.");
+                    error=true;
+                    in.nextLine();
+
+                }
+
+            }while(error);
+
             Empleado ex2 = new PlazaFija(nombre, puesto, salario, extension);
+            emp.addEmpleado(ex2);
             System.out.println("Debe añadir un documento:");
             añadirDocumento(ex2);
-            emp.addEmpleado(ex2);
-
 
             do {
                 System.out.println("Desea añadir otro documento?\n1.Añadir\n0.terminar");
@@ -193,6 +285,7 @@ public class Main {
             } while (opc2 != 0);
 
         }
+
 
 
     }
