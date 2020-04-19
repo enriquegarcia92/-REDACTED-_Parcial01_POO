@@ -1,7 +1,6 @@
 package com.JEGA.x00093619;
 
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 
 public class Empresa {
     private String nombreE;
@@ -21,17 +20,21 @@ public class Empresa {
     }
 
     public void addEmpleado(Empleado emp){
-
-            planilla.add(emp);
+    planilla.add(emp);
     }
-
     public void quitEmpleado(String nombre){
-    for(Empleado emp: planilla){
-        if(emp instanceof ServicioProfesional){
-            planilla.removeIf(s->s.getNombre()==nombre);
+        Empleado aux = null;
+
+        for(Empleado Emp : planilla){
+            if(Emp.getNombre().equals(nombre))
+                aux = Emp;
         }
-    }
-    }
+
+            planilla.remove(aux);
+
+
+
+}
 
     public String consultarEmpleados(){
         String cadena = "";
@@ -48,4 +51,20 @@ public class Empresa {
         return cadena;
     }
 
-}
+    public Empleado buscarEmpleado(String nombre){
+
+        Empleado aux = null;
+
+        for(Empleado Emp : planilla){
+            if(Emp.getNombre().equals(nombre))
+                aux = Emp;
+        }
+
+
+           return aux;
+
+    }
+
+
+
+    }

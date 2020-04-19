@@ -1,7 +1,6 @@
 package com.JEGA.x00093619;
 
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -23,52 +22,31 @@ public class Main {
 
         byte op;
 
-        boolean error = false;
+        do{
+            System.out.println("Ingrese una opcion\n1.añadir empleado\n2.Despedir Empleado\n3.Ver Empleado\n4.Calcular Sueldo\n5.Mostrar Totales\n0.Salir");
+            op=in.nextByte();in.nextLine();
+            switch(op){
+                case 1:
+                    añadirEmpleado(empresa);
+                    break;
+                case 2:
+                    System.out.println("Ingrese el nombre del empleado que quiere despedir");
+                    String nombre=in.nextLine();
+                    String finalname;
+                    finalname=nombre;
+                    empresa.quitEmpleado(finalname);
+                    break;
+                case 3:
+                    System.out.println(empresa.consultarEmpleados());
 
-        do {
-
-            error=false;
-
-            try{
-
-            do {
-
-                    System.out.println("Ingrese una opcion\n1.añadir empleado\n2.Despedir Empleado\n3.Ver Empleado\n4.Calcular Sueldo\n5.Mostrar Totales\n0.Salir");
-
-                op = in.nextByte();
-                in.nextLine();
-                switch (op) {
-                    case 1:
-                        añadirEmpleado(empresa);
-                        break;
-                    case 2:
-                        System.out.println("Ingrese el nombre del empleado que quiere despedir");
-                        String nombre = in.nextLine();
-                        String finalname;
-                        finalname = nombre;
-                        empresa.quitEmpleado(finalname);
-                        break;
-                    case 3:
-                        System.out.println(empresa.consultarEmpleados());
-
-                        break;
-                }
-
-            } while (op != 0);
-
-            }catch(InputMismatchException e){
-
-                System.out.println("debe utilizar un numero entre 0 y 5 para su elección.");
-                in.nextLine();
-                error=true;
-
-
+                    break;
             }
-        }while (error);
+        }while(op!=0);
+
+
+
 
     }
-
-
 
     public static void añadirEmpleado(Empresa emp) {
         String nombre = "", puesto = "";
@@ -77,7 +55,7 @@ public class Main {
 
         int opc1,opc2=0;
 
-        System.out.println("para ingresar un empleado por contrato presione 1, para plaza fija presione 2, 3 para regresar: ");
+        System.out.println("para ingresar un empleado por contrato presione 1, para plaza fija presione 2");
 
         opc1 = in.nextByte();
         in.nextLine();
@@ -92,25 +70,9 @@ public class Main {
 
             puesto = in.nextLine();
 
-            boolean error=false;
+            System.out.println("ingrese el salario del empleado: ");
 
-            do {
-                error=false;
-
-                try {
-                    System.out.println("ingrese el salario del empleado: ");
-                    salario = in.nextDouble();
-
-                } catch (InputMismatchException e) {
-
-                    System.out.println("Solo se admiten valores númericos en esta casilla");
-                    error=true;
-                    in.nextLine();
-
-                }
-            }while(error);
-
-
+            salario = in.nextDouble();
             in.nextLine();
 
             System.out.println("ingrese los meses del contrato: ");
