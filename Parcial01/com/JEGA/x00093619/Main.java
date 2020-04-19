@@ -1,5 +1,7 @@
 package com.JEGA.x00093619;
 
+import sun.util.calendar.CalendarUtils;
+
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -20,7 +22,7 @@ public class Main {
         nombreE = in.nextLine();
 
         Empresa empresa = new Empresa(nombreE);
-
+        CalculadoraImpuestos calcuIMP= new CalculadoraImpuestos();
         byte op;
         boolean error = false;
 
@@ -49,6 +51,32 @@ public class Main {
                         case 3:
                             System.out.println(empresa.consultarEmpleados());
 
+                            break;
+                        case 4:
+                            try{
+                                System.out.println("Ingrese el nombre del empleado al que le va a pagar");
+                                String nomcal;
+                                nomcal=in.nextLine();
+
+                                Empleado empleado;
+                                empleado=empresa.buscarEmpleado(nomcal);
+                                if(empleado==null){
+                                    throw new EmployeNotFoundExeption("Empleado no encontrado");
+                                }
+                                System.out.println(calcuIMP.calcularPago(empleado));
+                            }catch(EmployeNotFoundExeption e){
+                                System.out.println(e.getMessage());
+                            }catch(Exception e){
+                                System.out.println(e.getMessage());
+                            }
+
+
+                            break;
+                        case 5:
+                            System.out.println(calcuIMP.mostrarTotales());
+                            break;
+                        case 0:
+                            System.out.println("Saliendo...");
                             break;
                     }
                 } while (op != 0);
